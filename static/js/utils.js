@@ -10,3 +10,17 @@ function assert(exp, message) {
 		throw new AssertException(message);
 	}
 }
+
+// helper functions
+function load_page(page, callback) {
+	$('#container-exp').load(page, function(responseTxt, statusTxt, xhr){
+	 if(statusTxt == "success")
+	   callback();
+	 if(statusTxt == "error")
+	   alert("Error: " + xhr.status + ": " + xhr.statusText);
+   });
+  }
+  
+function set_next_onclick(clickfunction) {
+	document.getElementById('next').onclick = clickfunction;
+  };
