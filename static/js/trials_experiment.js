@@ -104,7 +104,7 @@ var contexts = [
     color: list_colors.pop(),
   },
 ];
-console.log(contexts);
+
 /* we want to control for the actual goal identity, so randomize what is acutally shown on the screen
  such that what we count as Goal "A" may actually be goal "C", etc.
  */
@@ -192,8 +192,7 @@ for (ii = 0; ii < bag_of_test_contexts.length; ii++) {
   context_queue.push(bag_of_test_contexts[ii]);
 }
 
-console.log("Context Order:");
-console.log(context_queue);
+
 // count the contexts in the queue
 var context_counts = [];
 for (ii = 0; ii < contexts.length; ii++) {
@@ -203,8 +202,7 @@ for (ii = 0; ii < context_queue.length; ii++) {
   var ctx = context_queue[ii];
   context_counts[ctx] += 1;
 }
-console.log("Number of Context Repeats:");
-console.log(context_counts);
+
 
 /* need code to define the goal locations */
 function random_goal_locations() {
