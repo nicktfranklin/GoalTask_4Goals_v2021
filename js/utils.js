@@ -24,3 +24,7 @@ function load_page(page, callback) {
 function set_next_onclick(clickfunction) {
 	document.getElementById('next').onclick = clickfunction;
   };
+
+var replaceBody = function (error_message) {
+	$("body").html(error_message);
+  };
