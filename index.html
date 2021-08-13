@@ -13,15 +13,16 @@
     <link rel="stylesheet" href="static/css/custom.css" />
     <link rel="stylesheet" href="static/css/bootstrap.min.css" />
 
-    <!-- Libraries need to run the gridworld -->
-    <script src="lib/raphael.js"></script>
-    <script src="lib/tiny-pubsub.js"></script>
-    <script src="lib/underscore.js"></script>
-
     <!-- Javascript libraries used in the experiment -->
     <script src="js/lib/hsluv.min.js" type="text/javascript"></script>
     <script src="js/lib/jquery-min.js" type="text/javascript"></script>
-    <script src="static/js/lib/palette.js" type="text/javascript"></script>
+    <script src="js/lib/palette.js" type="text/javascript"></script>
+
+    <!-- Libraries need to run the gridworld -->
+    <script src="/js/lib/raphael.js"></script>
+    <script src="/js/lib/tiny-pubsub.js"></script>
+    <script src="/js/lib/underscore.js"></script>
+    <!-- <script src="/js/lib/underscore-min.js" type="text/javascript"></script> -->
 
     <!-- Custom Javascript libraries needed to run the grid world-->
     <!-- Adapted from https://github.com/markkho/gridworld-painter-js -->
@@ -41,7 +42,7 @@
       place holder, with the html pages being "stage_instructions" and "stage_exp", both of 
       which are set via jquerry within javascript functions
     -->
-  <body onload="start();">
+  <body>
     <noscript>
       <h1>Warning: Javascript seems to be disabled</h1>
       <p>This website requires that Javascript be enabled on your browser.</p>
