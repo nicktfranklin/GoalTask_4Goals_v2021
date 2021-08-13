@@ -4,30 +4,25 @@
  */
 "use strict";
 
-function start() {
-  console.log('test');
-  current_view = new load_welcome();
-};
-
 /********************
  * Tutorial      *
  ********************/
-var load_welcome = function() {
+var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
-  var callback = function() { set_next_onclick(load_consent) };
+  var callback = function () {
+    set_next_onclick(function () {
+      current_view = new Tutorial();
+    });
+  };
   // load the html, run the callback function
-  load_page('./static/templates/welcome.html', callback);
-}
-
-
+  load_page("./static/templates/welcome.html", callback);
+};
 
 /********************
  * Tutorial      *
  ********************/
 var move_to_next_trial;
 var n_responses;
-
-
 
 var Tutorial = function () {
   move_to_next_trial = false;
@@ -36,7 +31,7 @@ var Tutorial = function () {
   var curBlock;
 
   var init = function () {
-    load_page("templates/stage.html");
+    load_page("./static/templates/stage.html");
 
     for (var i = 0; i < demo_trials.length; i++) {
       demo_trials[i].task_display = document.getElementById("task_display");
@@ -518,6 +513,9 @@ var start_time = new Date().getTime();
 // /*******************
 //  * Run Task
 //  ******************/
+$(window).load(function () {
+  current_view = new LoadWelcome();
+});
 // $(window).load(function () {
 //   psiTurk.doInstructions(
 //     instructionsWelcome,
