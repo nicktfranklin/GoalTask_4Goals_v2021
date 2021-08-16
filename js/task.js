@@ -5,9 +5,20 @@
 "use strict";
 
 /********************
- * Tutorial      *
+ * Welcome      *
  ********************/
 var LoadWelcome = function () {
+  // this call back function is called once the html is loaded...
+  var callback = function () {
+    set_next_onclick(function () {
+      current_view = new LoadWelcome2();
+    });
+  };
+  // load the html, run the callback function
+  loadPage("./static/templates/welcome.html", callback);
+};
+
+var LoadWelcome2 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_next_onclick(function () {
@@ -15,7 +26,7 @@ var LoadWelcome = function () {
     });
   };
   // load the html, run the callback function
-  load_page("./static/templates/welcome.html", callback);
+  loadPage("./static/templates/instructions/instruct-tutorial.html", callback);
 };
 
 /********************
@@ -31,10 +42,10 @@ var Tutorial = function () {
   var curBlock;
 
   var init = function () {
-    load_page("./static/templates/stage.html");
+    loadPage("./static/templates/stage.html", function () {});
 
     for (var i = 0; i < demo_trials.length; i++) {
-      demo_trials[i].task_display = document.getElementById("task_display");
+      demo_trials[i].task_display = $("#task_display");
       demo_trials[i].text_display = $("#trial_text");
       demo_trials[i].trial_number = i;
     }
@@ -52,12 +63,9 @@ var Tutorial = function () {
       if (demo_trials.length === 0) {
         $(document).unbind("keydown.continue");
         $(document).unbind("keydown.gridworld");
-        psiTurk.doInstructions(
-          instructionsExperiment,
-          function () {
-            current_view = new InstructionsQuestionnaire();
-          } // function executes following instructions.
-        );
+
+        // Go to next
+        current_view = new LoadEndTutorial();
       } else {
         //this.stateCheck = true;
         $(document).unbind("keydown.continue");
@@ -96,6 +104,66 @@ var Tutorial = function () {
 };
 
 /************************
+ * Instructions  *
+ *************************/
+
+var LoadEndTutorial = function () {
+  // this call back function is called once the html is loaded...
+  var callback = function () {
+    set_next_onclick(function () {
+      current_view = new LoadInstructions1();
+    });
+  };
+  // load the html, run the callback function
+  loadPage(
+    "./static/templates/instructions/instruct-endtutorial.html",
+    callback
+  );
+};
+
+var LoadInstructions1 = function () {
+  // this call back function is called once the html is loaded...
+  var callback = function () {
+    set_next_onclick(function () {
+      current_view = new LoadInstructions2();
+    });
+  };
+  // load the html, run the callback function
+  loadPage(
+    "./static/templates/instructions/instruct-experiment1.html",
+    callback
+  );
+};
+
+var LoadInstructions2 = function () {
+  // this call back function is called once the html is loaded...
+  var callback = function () {
+    set_next_onclick(function () {
+      current_view = new LoadInstructions3();
+    });
+  };
+  // load the html, run the callback function
+  loadPage(
+    "./static/templates/instructions/instruct-experiment2.html",
+    callback
+  );
+};
+
+var LoadInstructions3 = function () {
+  // this call back function is called once the html is loaded...
+  var callback = function () {
+    set_next_onclick(function () {
+      current_view = new Experiment();
+    });
+  };
+  // load the html, run the callback function
+  loadPage(
+    "./static/templates/instructions/instruct-experiment3.html",
+    callback
+  );
+};
+
+/************************
  * Grid World Experiment *
  *************************/
 var total_points = 0;
@@ -117,7 +185,7 @@ var Experiment = function () {
     console.log("experiment init called");
 
     // psiTurk.showPage('stage.html');
-    load_page("stage.html");
+    loadPage("stage.html");
 
     for (var i = 0; i < trials.length; i++) {
       trials[i].task_display = document.getElementById("task_display");
@@ -242,7 +310,7 @@ var Experiment = function () {
  ****************/
 var RewardFeedback_experiment = function () {
   // psiTurk.showPage("feedback/feedback-experiment.html");
-  load_page("feedback/feedback-experiment.html");
+  loadPage("feedback/feedback-experiment.html");
   $("#points").html(total_points);
 
   $("#next").click(function () {

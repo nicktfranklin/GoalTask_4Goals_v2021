@@ -1,17 +1,8 @@
 "use strict";
 
-var DemoTrial = function (
-  gridworld,
-  initState,
-  key_handler,
-  initText,
-  task_display,
-  text_display
-) {
+var DemoTrial = function (gridworld, initState, key_handler, initText) {
   this.gridworld = gridworld;
   this.initState = initState;
-  this.task_display = document.getElementById("task_display");
-  this.text_display = $(text_display);
   this.state = initState;
   this.key_handler = (function (context, key_handler) {
     return function (event) {
@@ -21,6 +12,9 @@ var DemoTrial = function (
   this.initText = initText;
   this.colors = [tutorial_color_1];
   this.draw_goals = true;
+  
+  this.task_display;
+  this.text_display;
 };
 
 DemoTrial.prototype.start = function () {
@@ -33,6 +27,7 @@ DemoTrial.prototype.start = function () {
   trial_on = new Date().getTime();
 
   this.text_display.html(this.initText);
+
   this.painter.init(this.task_display);
   $(this.painter.paper.canvas).css({ display: "block", margin: "auto" }); //center the task
   this.painter.drawState(this.state);

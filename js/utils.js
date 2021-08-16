@@ -14,7 +14,7 @@ function assert(exp, message) {
 }
 
 // helper functions
-function load_page(page, callback) {
+function loadPage(page, callback) {
   $("#container-exp").load(page, function (responseTxt, statusTxt, xhr) {
     if (statusTxt == "success") callback();
     if (statusTxt == "error")
