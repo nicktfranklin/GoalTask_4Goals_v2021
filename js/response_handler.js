@@ -270,16 +270,18 @@ var demo_responseHandler_generator_endDemo = function (action_mapping) {
 
     $(document).unbind("keydown.gridworld");
 
-    // Record in psiturk (work in progress)
-    psiTurk.recordTrialData({
-      phase: "Demo Trial",
-      "key-press": event.which,
-      action: response,
-      "End Location": this.state["agent1"].location,
-      rt: rt,
-      action_map: action_mapping,
-      "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
-    });
+    // // Record in psiturk (work in progress)
+    // psiTurk.recordTrialData({
+    //   phase: "Demo Trial",
+    //   "key-press": event.which,
+    //   action: response,
+    //   "End Location": this.state["agent1"].location,
+    //   rt: rt,
+    //   action_map: action_mapping,
+    //   "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
+    // });
+    // TODO log demo trail data?
+    console.log("SAVE TRIAL DATA GOES HERE");
 
     //note: you need a closure in order to properly reset
     var reset_key_handler = (function (key_handler) {
