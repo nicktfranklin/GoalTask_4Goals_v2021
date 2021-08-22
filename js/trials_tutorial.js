@@ -12,7 +12,7 @@ var DemoTrial = function (gridworld, initState, key_handler, initText) {
   this.initText = initText;
   this.colors = [tutorial_color_1];
   this.draw_goals = true;
-  
+
   this.task_display;
   this.text_display;
 };
@@ -85,6 +85,7 @@ var demo0 = new DemoTrial(
   },
   function (event) {
     move_to_next_trial = true;
+    $(document).unbind("keydown.gridworld");
   }, // this needs to be a function of event
   //initial text, display id, message id
   "See the circle in the center?<br> You control the circle and can move it to different places. " +

@@ -34,16 +34,13 @@ var LoadWelcome2 = function () {
  ********************/
 var move_to_next_trial;
 var n_responses;
+var curBlock;
 
 var Tutorial = function () {
   move_to_next_trial = false;
   // trial_complete = false;
 
-  var curBlock;
-
   var init = function () {
-    loadPage("./static/templates/stage.html", function () {});
-
     for (var i = 0; i < demo_trials.length; i++) {
       demo_trials[i].task_display = $("#task_display");
       demo_trials[i].text_display = $("#trial_text");
@@ -55,7 +52,12 @@ var Tutorial = function () {
     }
 
     curBlock = demo_trials.shift();
+
+    curBlock.task_display = document.getElementById("task_display");
+    curBlock.text_display = $("#trial_text");
     setTimeout(curBlock.start(), 10);
+
+    $(document).bind("keydown.continue", next);
   };
 
   var next = function (event) {
@@ -99,8 +101,7 @@ var Tutorial = function () {
     }
   };
 
-  init();
-  $(document).bind("keydown.continue", next);
+  loadPage("./static/templates/stage.html", init);
 };
 
 /************************
