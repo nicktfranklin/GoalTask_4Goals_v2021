@@ -22,8 +22,10 @@ function loadPage(page, callback) {
   });
 }
 
-function set_next_onclick(clickfunction) {
-  document.getElementById("next").onclick = clickfunction;
+function set_onclick_function(elementID, clickfunction) {
+  console.log(elementID)
+  
+  document.getElementById(elementID).onclick = clickfunction;
 }
 
 var replaceBody = function (error_message) {

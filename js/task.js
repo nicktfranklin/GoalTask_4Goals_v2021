@@ -10,8 +10,8 @@
 var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    set_next_onclick(function () {
-      current_view = new LoadWelcome2();
+    set_onclick_function("next", function () {
+      current_view = new LoadEndTutorial();
     });
   };
   // load the html, run the callback function
@@ -21,7 +21,7 @@ var LoadWelcome = function () {
 var LoadWelcome2 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    set_next_onclick(function () {
+    set_onclick_function("next", function () {
       current_view = new Tutorial();
     });
   };
@@ -38,7 +38,6 @@ var curBlock;
 
 var Tutorial = function () {
   move_to_next_trial = false;
-  // trial_complete = false;
 
   var init = function () {
     for (var i = 0; i < demo_trials.length; i++) {
@@ -69,12 +68,10 @@ var Tutorial = function () {
         // Go to next
         current_view = new LoadEndTutorial();
       } else {
-        //this.stateCheck = true;
         $(document).unbind("keydown.continue");
         $.publish("killtimers");
 
         n_responses = 0;
-        // console.log(cur)
 
         if (typeof curBlock !== "undefined") {
           var restart = curBlock.restart;
@@ -111,7 +108,7 @@ var Tutorial = function () {
 var LoadEndTutorial = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    set_next_onclick(function () {
+    set_onclick_function("next", function () {
       current_view = new LoadInstructions1();
     });
   };
@@ -125,7 +122,7 @@ var LoadEndTutorial = function () {
 var LoadInstructions1 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    set_next_onclick(function () {
+    set_onclick_function("next", function () {
       current_view = new LoadInstructions2();
     });
   };
@@ -139,11 +136,15 @@ var LoadInstructions1 = function () {
 var LoadInstructions2 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    set_next_onclick(function () {
+    set_onclick_function("next", function () {
       current_view = new LoadInstructions3();
+    });
+    set_onclick_function("previous", function () {
+      current_view = new LoadInstructions1();
     });
   };
   // load the html, run the callback function
+  console.log('loading_page_2');
   loadPage(
     "./static/templates/instructions/instruct-experiment2.html",
     callback
@@ -153,8 +154,11 @@ var LoadInstructions2 = function () {
 var LoadInstructions3 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    set_next_onclick(function () {
-      current_view = new Experiment();
+    set_onclick_function("next", function () {
+      current_view = new InstructionsQuestionnaire();
+    });
+    set_onclick_function("previous", function () {
+      current_view = new LoadInstructions2();
     });
   };
   // load the html, run the callback function
@@ -164,7 +168,7 @@ var LoadInstructions3 = function () {
   );
 };
 
-/************************
+/*************************
  * Grid World Experiment *
  *************************/
 var total_points = 0;
@@ -319,78 +323,79 @@ var RewardFeedback_experiment = function () {
   });
 };
 
-// /****************
-//  * Questionnaire *
-//  ****************/
-// var record_responses;
+/****************
+ * Questionnaire *
+ ****************/
+var record_responses;
 
-// var savedata;
-// var finish;
-// var InstructionsQuestionnaire = function () {
-//   var check_responses = function () {
-//     var answers = {};
-//     $("select").each(function (i, val) {
-//       answers[this.id] = this.value;
-//     });
+var savedata;
+var finish;
+var InstructionsQuestionnaire = function () {
+  var check_responses = function () {
+    var answers = {};
+    $("select").each(function (i, val) {
+      answers[this.id] = this.value;
+    });
 
-//     var correct_answers = {
-//       q1: "Both",
-//       q2: "Letter",
-//       q3: "Points",
-//     };
+    var correct_answers = {
+      q1: "Both",
+      q2: "Letter",
+      q3: "Points",
+    };
 
-//     var all_correct;
-//     for (var q in answers) {
-//       if (!answers.hasOwnProperty(q)) continue;
-//       all_correct = answers[q] === correct_answers[q];
+    var all_correct;
+    for (var q in answers) {
+      if (!answers.hasOwnProperty(q)) continue;
+      all_correct = answers[q] === correct_answers[q];
 
-//       if (!all_correct) {
-//         break;
-//       }
-//     }
+      if (!all_correct) {
+        break;
+      }
+    }
 
-//     if (all_correct) {
-//       $("#backbutton").html("");
-//       $("#next").html(
-//         'Begin Game <span class="glyphicon glyphicon-arrow-right"></span>'
-//       );
-//       return true;
-//     }
-//     return false;
-//   };
+    if (all_correct) {
+      $("#backbutton").html("");
+      $("#next").html(
+        'Begin Game <span class="glyphicon glyphicon-arrow-right"></span>'
+      );
+      return true;
+    }
+    return false;
+  };
 
-//   // Load the questionnaire snippet
-//   psiTurk.showPage("questionnaires/questionnaire-instructions.html");
+  // Load the questionnaire snippet
 
-//   var start_experiment = function () {
-//     $("#next").click(function () {
-//       current_view = Experiment();
-//     });
-//   };
+  var start_experiment = function () {
+    $("#next").click(function () {
+      current_view = new Experiment();
+    });
+  };
 
-//   $("#next").click(function () {
-//     var check_val = check_responses();
-//     if (check_val) {
-//       start_experiment();
-//       $("#my_head").html(
-//         '<span style="font-weight: bold"><span style="color: blue">Great Job!</span></span> ' +
-//           "<br>Start the experiment when you are ready!"
-//       );
-//     } else {
-//       $("#my_head").html(
-//         '<span style="font-weight: bold"><span style="color: red">Try again!</span></span> ' +
-//           "Select the right answers before you continue<br>You can go back and read the " +
-//           "instructions again if you don't remember."
-//       );
-//     }
-//   });
-
-//   $("#back").click(function () {
-//     psiTurk.doInstructions(instructionsExperiment_repeat, function () {
-//       current_view = new InstructionsQuestionnaire();
-//     });
-//   });
-// };
+  loadPage(
+    "static/questionnaires/questionnaire-instructions.html",
+    function () {
+      $("#next").click(function () {
+        var check_val = check_responses();
+        if (check_val) {
+          start_experiment();
+          $("#my_head").html(
+            '<span style="font-weight: bold"><span style="color: blue">Great Job!</span></span> ' +
+              "<br>Start the experiment when you are ready!"
+          );
+        } else {
+          $("#my_head").html(
+            '<span style="font-weight: bold"><span style="color: red">Try again!</span></span> ' +
+              "Select the right answers before you continue<br>You can go back and read the " +
+              "instructions again if you don't remember."
+          );
+        }
+      });
+      $("#back").click(function () {
+        current_view = new LoadInstructions1();
+      });
+    }
+  );
+};
 
 // var aqQuestionnaire = function () {
 //   // Add error message?
