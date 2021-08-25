@@ -11,7 +11,7 @@ var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      current_view = new LoadEndTutorial();
+      current_view = new LoadWelcome2();
     });
   };
   // load the html, run the callback function
@@ -122,10 +122,11 @@ var LoadEndTutorial = function () {
 var LoadInstructions1 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    set_onclick_function("next", function () {
-      current_view = new LoadInstructions2();
-    });
-  };
+    document.getElementById('next').onclick = function () {
+      current_view = new LoadInstructions2
+    };
+  }
+
   // load the html, run the callback function
   loadPage(
     "./static/templates/instructions/instruct-experiment1.html",
@@ -136,13 +137,14 @@ var LoadInstructions1 = function () {
 var LoadInstructions2 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    set_onclick_function("next", function () {
-      current_view = new LoadInstructions3();
-    });
-    set_onclick_function("previous", function () {
-      current_view = new LoadInstructions1();
-    });
-  };
+    document.getElementById('next').onclick = function () {
+      current_view = new LoadInstructions3;
+    };
+
+    document.getElementById('previous').onclick = function() {
+      current_view = new LoadInstructions1;
+    };
+  }
   // load the html, run the callback function
   console.log('loading_page_2');
   loadPage(
@@ -154,13 +156,14 @@ var LoadInstructions2 = function () {
 var LoadInstructions3 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    set_onclick_function("next", function () {
-      current_view = new InstructionsQuestionnaire();
-    });
-    set_onclick_function("previous", function () {
-      current_view = new LoadInstructions2();
-    });
-  };
+    document.getElementById('next').onclick = function () {
+      current_view = new InstructionsQuestionnaire;
+    };
+
+    document.getElementById('previous').onclick = function() {
+      current_view = new LoadInstructions2;
+    };
+  }
   // load the html, run the callback function
   loadPage(
     "./static/templates/instructions/instruct-experiment3.html",
