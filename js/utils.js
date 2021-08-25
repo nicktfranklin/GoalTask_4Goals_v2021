@@ -22,9 +22,7 @@ function loadPage(page, callback) {
   });
 }
 
-function set_onclick_function(elementID, clickfunction) {
-  console.log(elementID)
-  
+function set_onclick_function(elementID, clickfunction) {  
   document.getElementById(elementID).onclick = clickfunction;
 }
 

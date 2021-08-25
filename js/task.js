@@ -11,11 +11,20 @@ var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      current_view = new LoadWelcome2();
+      current_view = new LoadConsent();
     });
   };
   // load the html, run the callback function
   loadPage("./static/templates/welcome.html", callback);
+};
+
+var LoadConsent = function () {
+  var callback = function () {
+    set_onclick_function("next", function () {
+      current_view = new LoadWelcome2();
+    });
+  };
+  loadPage("./static/consent.html", callback);
 };
 
 var LoadWelcome2 = function () {
@@ -122,10 +131,10 @@ var LoadEndTutorial = function () {
 var LoadInstructions1 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    document.getElementById('next').onclick = function () {
-      current_view = new LoadInstructions2
+    document.getElementById("next").onclick = function () {
+      current_view = new LoadInstructions2();
     };
-  }
+  };
 
   // load the html, run the callback function
   loadPage(
@@ -137,16 +146,16 @@ var LoadInstructions1 = function () {
 var LoadInstructions2 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    document.getElementById('next').onclick = function () {
-      current_view = new LoadInstructions3;
+    document.getElementById("next").onclick = function () {
+      current_view = new LoadInstructions3();
     };
 
-    document.getElementById('previous').onclick = function() {
-      current_view = new LoadInstructions1;
+    document.getElementById("previous").onclick = function () {
+      current_view = new LoadInstructions1();
     };
-  }
+  };
   // load the html, run the callback function
-  console.log('loading_page_2');
+  console.log("loading_page_2");
   loadPage(
     "./static/templates/instructions/instruct-experiment2.html",
     callback
@@ -156,14 +165,14 @@ var LoadInstructions2 = function () {
 var LoadInstructions3 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
-    document.getElementById('next').onclick = function () {
-      current_view = new InstructionsQuestionnaire;
+    document.getElementById("next").onclick = function () {
+      current_view = new InstructionsQuestionnaire();
     };
 
-    document.getElementById('previous').onclick = function() {
-      current_view = new LoadInstructions2;
+    document.getElementById("previous").onclick = function () {
+      current_view = new LoadInstructions2();
     };
-  }
+  };
   // load the html, run the callback function
   loadPage(
     "./static/templates/instructions/instruct-experiment3.html",
