@@ -21,7 +21,7 @@ var LoadWelcome = function () {
 var LoadConsent = function () {
   var callback = function () {
     set_onclick_function("next", function () {
-      current_view = new LoadWelcome2();
+      current_view = new DemographicsQuestionnaire();
     });
   };
   loadPage("./static/consent.html", callback);
@@ -291,7 +291,8 @@ var Experiment = function () {
     // current_view = new RewardFeedback_experiment();
     var error_message =
       "<h1>Oops!</h1><p>Something went wrong submitting your HIT. This might happen if you " +
-      "lose your internet connection. Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
+      "lose your internet connection." +
+      "Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
 
     prompt_resubmit = function () {
       replaceBody(error_message);
@@ -416,14 +417,19 @@ var aqQuestionnaire = function () {
     "lose your internet connection. Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
 
   record_responses = function () {
-    psiTurk.recordTrialData({ phase: "questionnaire-aq", status: "submit" });
-
-    $("textarea").each(function (i, val) {
-      psiTurk.recordUnstructuredData(this.id, this.value);
-    });
-    $("select").each(function (i, val) {
-      psiTurk.recordUnstructuredData(this.id, this.value);
-    });
+    var aq_responses = {
+      q1: document.getElementById("q1").value,
+      q2: document.getElementById("q2").value,
+      q3: document.getElementById("q3").value,
+      q4: document.getElementById("q4").value,
+      q5: document.getElementById("q5").value,
+      q6: document.getElementById("q6").value,
+      q7: document.getElementById("q7").value,
+      q8: document.getElementById("q8").value,
+      q9: document.getElementById("q9").value,
+      q10: document.getElementById("q10").value,
+    };
+    console.log(aq_responses);
   };
 
   prompt_resubmit = function () {
@@ -435,56 +441,46 @@ var aqQuestionnaire = function () {
     replaceBody("<h1>Trying to resubmit...</h1>");
     reprompt = setTimeout(prompt_resubmit, 10000);
 
-    psiTurk.saveData({
-      success: function () {
-        clearInterval(reprompt);
-        current_view = new Tutorial();
-      },
-      error: prompt_resubmit,
-    });
+    // psiTurk.saveData({
+    //   success: function () {
+    //     clearInterval(reprompt);
+    //     current_view = new Tutorial();
+    //   },
+    //   error: prompt_resubmit,
+    // });
   };
 
   // Load the questionnaire snippet
-  psiTurk.showPage("questionnaires/questionnaire-aq.html");
-  psiTurk.recordTrialData({ phase: "questionnaire-aq", status: "begin" });
+  loadPage(
+    "static/questionnaires/questionnaire-aq.html",
+    function () {
+      $("#next").click(function () {
+        record_responses();
+        current_view = new LoadWelcome2();
+      })
+    }
 
-  $("#next").click(function () {
-    record_responses();
-    psiTurk.saveData({
-      success: function () {
-        psiTurk.doInstructions(
-          instructionsTutorial,
-          function () {
-            current_view = new Tutorial();
-          } // what you want to do when you are done with the questionnaire
-        );
-      },
-      error: prompt_resubmit,
-    });
-  });
+  );
 };
 
 var DemographicsQuestionnaire = function () {
   var error_message =
-    "<h1>Oops!</h1><p>Something went wrong submitting your HIT. This might happen if you " +
-    "lose your internet connection. Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
+    "<h1>Oops!</h1><p>Something went wrong submitting your HIT. " +
+    "This might happen if you " +
+    "lose your internet connection. Press the button to" +
+    " resubmit.</p><button id='resubmit'>Resubmit</button>";
 
   record_responses = function () {
-    psiTurk.recordTrialData({
-      phase: "questionnaire-demographics",
-      status: "submit",
-    });
+    var demographics = {
+      gender: document.getElementById("gender").value,
+      age: document.getElementById("age").value,
+      handedness: document.getElementById("handedness").value,
+      education: document.getElementById("education").value,
+      ethnicity: document.getElementById("ethnicity").value,
+      hispanic: document.getElementById("hispanic").value,
+    };
 
-    $("textarea").each(function (i, val) {
-      psiTurk.recordUnstructuredData(this.id, this.value);
-    });
-    $("select").each(function (i, val) {
-      psiTurk.recordUnstructuredData(this.id, this.value);
-    });
-
-    psiTurk.recordUnstructuredData("Browser", navigator.userAgent);
-    var elapsedTime = new Date().getTime() - start_time;
-    psiTurk.recordUnstructuredData("Completion Time", elapsedTime);
+    console.log(demographics);
   };
 
   prompt_resubmit = function () {
@@ -496,31 +492,25 @@ var DemographicsQuestionnaire = function () {
     replaceBody("<h1>Trying to resubmit...</h1>");
     reprompt = setTimeout(prompt_resubmit, 10000);
 
-    psiTurk.saveData({
-      success: function () {
-        clearInterval(reprompt);
-        current_view = aqQuestionnaire();
-      },
-      error: prompt_resubmit,
-    });
+    // psiTurk.saveData({
+    //   success: function () {
+    //     clearInterval(reprompt);
+    //     current_view = aqQuestionnaire();
+    //   },
+    //   error: prompt_resubmit,
+    // });
   };
 
   // Load the questionnaire snippet
-  psiTurk.showPage("questionnaires/questionnaire-demographics.html");
-  psiTurk.recordTrialData({
-    phase: "questionnaire-demographics",
-    status: "begin",
-  });
-
-  $("#next").click(function () {
-    record_responses();
-    psiTurk.saveData({
-      success: function () {
+  loadPage(
+    "static/questionnaires/questionnaire-demographics.html",
+    function () {
+      $("#next").click(function () {
+        record_responses();
         current_view = aqQuestionnaire();
-      },
-      error: prompt_resubmit,
-    });
-  });
+      });
+    }
+  );
 };
 
 /****************
@@ -532,7 +522,7 @@ var TaskQuestionnaire = function () {
     "lose your internet connection. Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
 
   record_responses = function () {
-    psiTurk.recordTrialData({ phase: "questionnaire-task", status: "submit" });
+    // psiTurk.recordTrialData({ phase: "questionnaire-task", status: "submit" });
 
     $("textarea").each(function (i, val) {
       psiTurk.recordUnstructuredData(this.id, this.value);
