@@ -471,28 +471,29 @@ responseHandlerGenerator = function (action_mapping) {
       color_to_save = [];
     }
 
-    psiTurk.recordTrialData({
-      Context: this.context,
-      "Start Location": startLocation,
-      "Key-press": event.which,
-      "End Location": this.state["agent1"].location,
-      "Action Map": mapping_to_save,
-      Walls: walls_to_save,
-      Action: response, // this is the cardinal direction taken
-      Reward: goal_value,
-      "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
-      "Chosen Goal": goal_id,
-      "Displayed Goal Label": goal_display_label,
-      "Steps Taken": this.actions_taken,
-      "Goal Locations": goal_locations_to_save,
-      "Trial Number": trial_number,
-      "Times Seen Context": this.times_seen_context,
-      phase: "Experiment",
-      rt: rt,
-      // 'n actions taken': this.actions_taken,
-      // these are general trial information
-      agent_color: color_to_save,
-    });
+    // TODO: Replace datarecording
+    // psiTurk.recordTrialData({
+    //   Context: this.context,
+    //   "Start Location": startLocation,
+    //   "Key-press": event.which,
+    //   "End Location": this.state["agent1"].location,
+    //   "Action Map": mapping_to_save,
+    //   Walls: walls_to_save,
+    //   Action: response, // this is the cardinal direction taken
+    //   Reward: goal_value,
+    //   "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
+    //   "Chosen Goal": goal_id,
+    //   "Displayed Goal Label": goal_display_label,
+    //   "Steps Taken": this.actions_taken,
+    //   "Goal Locations": goal_locations_to_save,
+    //   "Trial Number": trial_number,
+    //   "Times Seen Context": this.times_seen_context,
+    //   phase: "Experiment",
+    //   rt: rt,
+    //   // 'n actions taken': this.actions_taken,
+    //   // these are general trial information
+    //   agent_color: color_to_save,
+    // });
 
     //note: you need a closure in order to properly reset
     // goal check, then reset key handler

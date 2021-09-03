@@ -11,7 +11,8 @@ var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      current_view = new LoadConsent();
+      // current_view = new LoadConsent();
+      current_view = new Experiment(); 
     });
   };
   // load the html, run the callback function
@@ -202,7 +203,7 @@ var Experiment = function () {
     console.log("experiment init called");
 
     // psiTurk.showPage('stage.html');
-    loadPage("stage.html");
+
 
     for (var i = 0; i < trials.length; i++) {
       trials[i].task_display = document.getElementById("task_display");
@@ -227,7 +228,7 @@ var Experiment = function () {
   };
 
   var next = function (event) {
-    console.log("next event called (training)");
+    // console.log("next event called (training)");
 
     if (event.which == 13) {
       console.log(event);
@@ -320,7 +321,7 @@ var Experiment = function () {
     // });
   };
 
-  init();
+  loadPage("static/templates/stage.html", init);
 };
 
 /****************

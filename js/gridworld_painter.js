@@ -169,7 +169,7 @@ GridWorldPainter.prototype.drawTransition = function (
   nextState,
   mdp
 ) {
-  console.log("------------");
+  // console.log("------------");
   this.drawState(state);
   var agent;
 
@@ -196,7 +196,7 @@ GridWorldPainter.prototype.drawTransition = function (
     }
     //waiting
     if (action[agent] == "wait") {
-      console.log(agent + " waits");
+      // console.log(agent + " waits");
       var expand = (function (painter, agentImage, original_size, time) {
         return function () {
           var anim = Raphael.animation({ r: original_size }, time, "backOut");
@@ -228,7 +228,7 @@ GridWorldPainter.prototype.drawTransition = function (
     else if (
       String(intendedLocation[agent]) !== String(nextState[agent].location)
     ) {
-      console.log(agent + " tried and failed");
+      // console.log(agent + " tried and failed");
 
       //distance to try depends on failure condition
       //1 - hit a wall or just hit another agent waiting
@@ -256,7 +256,7 @@ GridWorldPainter.prototype.drawTransition = function (
               String(nextState[agent].location)
           )
         ) {
-          console.log(agent + " collided with " + otherAgent);
+          // console.log(agent + " collided with " + otherAgent);
           SUBACTION_DISTANCE = this.SUBACTION_COLLISION_DISTANCE;
           SUBACTION_PROPORTION = this.SUBACTION_COLLISION_PROPORTION;
         }
@@ -314,7 +314,7 @@ GridWorldPainter.prototype.drawTransition = function (
     }
     //normal movement
     else {
-      console.log(agent + " makes normal movement");
+      // console.log(agent + " makes normal movement");
       var movement = Raphael.animation(
         {
           cx: (nextState[agent].location[0] + 0.5) * this.TILE_SIZE,
