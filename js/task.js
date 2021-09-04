@@ -11,8 +11,7 @@ var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      // current_view = new LoadConsent();
-      current_view = new Experiment(); 
+      current_view = new LoadConsent();
     });
   };
   // load the html, run the callback function
@@ -193,7 +192,6 @@ var resubmit;
 var Experiment = function () {
   trial_number = -1;
   move_to_next_trial = false;
-  // trial_complete = false;
 
   //trials variable is declared in trials_experimental.js
 
@@ -203,7 +201,6 @@ var Experiment = function () {
     console.log("experiment init called");
 
     // psiTurk.showPage('stage.html');
-
 
     for (var i = 0; i < trials.length; i++) {
       trials[i].task_display = document.getElementById("task_display");
@@ -228,9 +225,7 @@ var Experiment = function () {
   };
 
   var next = function (event) {
-
     if (event.which == 13) {
-
       if (trials.length === 0) {
         finish();
       } else {
@@ -327,18 +322,16 @@ var Experiment = function () {
  * Feedback Screens *
  ****************/
 var RewardFeedback_experiment = function () {
-
   var callback = function () {
     $("#points").html(total_points);
 
     set_onclick_function("next", function () {
       // current_view = new LoadConsent();
-      current_view = new TaskQuestionnaire(); 
+      current_view = new TaskQuestionnaire();
     });
   };
 
   loadPage("./static/templates/feedback-experiment.html", callback);
-
 };
 
 /****************
@@ -445,27 +438,15 @@ var aqQuestionnaire = function () {
   resubmit = function () {
     replaceBody("<h1>Trying to resubmit...</h1>");
     reprompt = setTimeout(prompt_resubmit, 10000);
-
-    // psiTurk.saveData({
-    //   success: function () {
-    //     clearInterval(reprompt);
-    //     current_view = new Tutorial();
-    //   },
-    //   error: prompt_resubmit,
-    // });
   };
 
   // Load the questionnaire snippet
-  loadPage(
-    "static/questionnaires/questionnaire-aq.html",
-    function () {
-      $("#next").click(function () {
-        record_responses();
-        current_view = new LoadWelcome2();
-      })
-    }
-
-  );
+  loadPage("static/questionnaires/questionnaire-aq.html", function () {
+    $("#next").click(function () {
+      record_responses();
+      current_view = new LoadWelcome2();
+    });
+  });
 };
 
 var DemographicsQuestionnaire = function () {
@@ -527,14 +508,15 @@ var TaskQuestionnaire = function () {
     "lose your internet connection. Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
 
   record_responses = function () {
-    // psiTurk.recordTrialData({ phase: "questionnaire-task", status: "submit" });
-
-    // $("textarea").each(function (i, val) {
-    //   psiTurk.recordUnstructuredData(this.id, this.value);
-    // });
-    // $("select").each(function (i, val) {
-    //   psiTurk.recordUnstructuredData(this.id, this.value);
-    // });
+    var task_responses = {
+      engagement: document.getElementById("engagement").value,
+      difficulty: document.getElementById("difficulty").value,
+      LeftDifficulty: document.getElementById("LeftDifficulty").value,
+      RightDifficulty: document.getElementById("RightDifficulty").value,
+      strategy: document.getElementById("strategy").value,
+      freeform: document.getElementById("freeform").value,
+    };
+    console.log(task_responses);
   };
 
   prompt_resubmit = function () {
@@ -545,46 +527,19 @@ var TaskQuestionnaire = function () {
   resubmit = function () {
     replaceBody("<h1>Trying to resubmit...</h1>");
     reprompt = setTimeout(prompt_resubmit, 10000);
+  };
 
-    psiTurk.saveData({
-      success: function () {
-        clearInterval(reprompt);
-        psiTurk.computeBonus("compute_bonus", function () {
-          finish();
-        });
-      },
-      error: prompt_resubmit,
-    });
+  finish = function () {
+    loadPage("static/templates/end.html", function () {});
   };
 
   // Load the questionnaire snippet
-  psiTurk.showPage("questionnaires/questionnaire-task.html");
-  psiTurk.recordTrialData({ phase: "questionnaire-task", status: "begin" });
-
-  $("#next").click(function () {
-    record_responses();
-    psiTurk.saveData({
-      success: function () {
-        psiTurk.computeBonus("compute_bonus", function () {
-          finish();
-        });
-      },
-      error: prompt_resubmit,
+  loadPage("static/questionnaires/questionnaire-task.html", function () {
+    $("#next").click(function () {
+      record_responses();
+      finish();
     });
   });
-
-  finish = function () {
-    psiTurk.completeHIT();
-  };
-
-  savedata = function () {
-    psiturk.saveData({
-      success: function () {
-        current_view = psiturk.completeHIT();
-      },
-      error: prompt_resubmit,
-    });
-  };
 };
 
 // Task object to keep track of the current phase
