@@ -103,25 +103,30 @@ if (Math.random() > 0.5) {
 var list_colors = [
   "#FFC0CB", // Pink
   "#FF1493", // Deep Pink
-  "#DDA0DD", // Lavender
-  "#FF00FF", // Fuschia
+  // "#DDA0DD", // Lavender
+  // "#FF00FF", // Fuschia
   "#9400D3", // Dark Violet
-  "#F08080", // Choral
+  // "#F08080", // Choral
   "#DC143C", // crimson
   "#8B0000", // dark red
   "#FF8C00", // dark orange
-  "#FF4500", // orange red
+  // "#FF4500", // orange red
   "#FFD700", // gold
-  "#7FFF00", // Chartreuse
+  // "#7FFF00", // Chartreuse
   "#229B22", // forest green
-  "#00FFFF", // cyan
-  "#00BFFF", // DeepSky Blue
+  // "#00FFFF", // cyan
+  "#808000", //olive
+  // "#00BFFF", // DeepSky Blue
   "#0000CD", // Medium Blue
   "#8B4513", // Saddle Brown
   "#696969", // Dim Grey
+  "#C2C2C2",
 ];
 
+var test_colors = ["#FF00FF", "#00FFFF", "#7FFF00", "#120052"];
+
 list_colors = _.shuffle(list_colors);
+test_colors = _.shuffle(test_colors);
 
 var tutorial_color_1 = list_colors.shift();
 var tutorial_color_2 = list_colors.shift();

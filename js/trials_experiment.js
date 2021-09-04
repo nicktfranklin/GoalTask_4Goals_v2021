@@ -77,7 +77,7 @@ var contexts = [
     ctx: 7,
     response_handler: response_handler_a,
     goal_id: "A",
-    color: list_colors.pop(),
+    color: test_colors.pop(),
   },
 
   // has goal B (mapping b)
@@ -85,7 +85,7 @@ var contexts = [
     ctx: 8,
     response_handler: response_handler_a,
     goal_id: "B",
-    color: list_colors.pop(),
+    color: test_colors.pop(),
   },
 
   // has goal C (mapping a)
@@ -93,7 +93,7 @@ var contexts = [
     ctx: 9,
     response_handler: response_handler_b,
     goal_id: "C",
-    color: list_colors.pop(),
+    color: test_colors.pop(),
   },
 
   // has goal D (mapping a)
@@ -101,7 +101,7 @@ var contexts = [
     ctx: 10,
     response_handler: response_handler_b,
     goal_id: "D",
-    color: list_colors.pop(),
+    color: test_colors.pop(),
   },
 ];
 
@@ -168,8 +168,8 @@ function randomize_context_queue(context_balance, repeat_prob) {
 }
 
 // This is the first half of the contexts
-var context_queue = randomize_context_queue(balance1.slice(), 0.40);
-var block_two = randomize_context_queue(balance1.slice(), 0.30);
+var context_queue = randomize_context_queue(balance1.slice(), 0.5);
+var block_two = randomize_context_queue(balance1.slice(), 0.3);
 var block_three = randomize_context_queue(balance2.slice(), 0.15);
 var block_four = randomize_context_queue(balance2.slice(), 0.08);
 
@@ -197,7 +197,6 @@ for (ii = 0; ii < bag_of_test_contexts.length; ii++) {
   context_queue.push(bag_of_test_contexts[ii]);
 }
 
-
 // count the contexts in the queue
 var context_counts = [];
 for (ii = 0; ii < contexts.length; ii++) {
@@ -207,7 +206,6 @@ for (ii = 0; ii < context_queue.length; ii++) {
   var ctx = context_queue[ii];
   context_counts[ctx] += 1;
 }
-
 
 /* need code to define the goal locations */
 function random_goal_locations() {

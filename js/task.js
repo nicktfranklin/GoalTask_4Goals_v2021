@@ -228,10 +228,8 @@ var Experiment = function () {
   };
 
   var next = function (event) {
-    // console.log("next event called (training)");
 
     if (event.which == 13) {
-      console.log(event);
 
       if (trials.length === 0) {
         finish();
@@ -319,6 +317,7 @@ var Experiment = function () {
     //   },
     //   error: prompt_resubmit,
     // });
+    current_view = new RewardFeedback_experiment();
   };
 
   loadPage("static/templates/stage.html", init);
@@ -328,13 +327,18 @@ var Experiment = function () {
  * Feedback Screens *
  ****************/
 var RewardFeedback_experiment = function () {
-  // psiTurk.showPage("feedback/feedback-experiment.html");
-  loadPage("feedback/feedback-experiment.html");
-  $("#points").html(total_points);
 
-  $("#next").click(function () {
-    current_view = new TaskQuestionnaire();
-  });
+  var callback = function () {
+    $("#points").html(total_points);
+
+    set_onclick_function("next", function () {
+      // current_view = new LoadConsent();
+      current_view = new TaskQuestionnaire(); 
+    });
+  };
+
+  loadPage("./static/templates/feedback-experiment.html", callback);
+
 };
 
 /****************
@@ -525,12 +529,12 @@ var TaskQuestionnaire = function () {
   record_responses = function () {
     // psiTurk.recordTrialData({ phase: "questionnaire-task", status: "submit" });
 
-    $("textarea").each(function (i, val) {
-      psiTurk.recordUnstructuredData(this.id, this.value);
-    });
-    $("select").each(function (i, val) {
-      psiTurk.recordUnstructuredData(this.id, this.value);
-    });
+    // $("textarea").each(function (i, val) {
+    //   psiTurk.recordUnstructuredData(this.id, this.value);
+    // });
+    // $("select").each(function (i, val) {
+    //   psiTurk.recordUnstructuredData(this.id, this.value);
+    // });
   };
 
   prompt_resubmit = function () {
