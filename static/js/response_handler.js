@@ -10,8 +10,6 @@ var wait_before_actions_time;
 var allow_response;
 wait_before_actions_time = 0;
 
-var trial_data = [];
-
 var demo_responseHandlerGenerator;
 demo_responseHandlerGenerator = function (action_mapping) {
   return function (event) {
@@ -95,16 +93,17 @@ demo_responseHandlerGenerator = function (action_mapping) {
       }
     }
 
-    // Record data
-    trial_data.append({
-      phase: "Demo Trial",
-      "key-press": event.which,
-      action: response,
-      "End Location": this.state["agent1"].location,
-      rt: rt,
-      action_map: action_mapping,
-      "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
-    });
+    // // Record in psiturk
+    // psiTurk.recordTrialData(
+    //     {
+    //         'phase': 'Demo Trial',
+    //         'key-press': event.which,
+    //         'action': response,
+    //         'End Location': this.state['agent1'].location,
+    //         'rt': rt,
+    //         'action_map': action_mapping,
+    //         'In Goal': this.mdp.inGoal(nextState[agent]['location'], agent)
+    //     });
 
     var reset_key_handler;
     if (this.mdp.inGoal(nextState[agent]["location"], agent)) {
@@ -189,16 +188,18 @@ var demo_responseHandler_generator_noReachableAction = function (
 
     $(document).unbind("keydown.gridworld");
 
-    // Record
-    trial_data.append({
-      phase: "Demo Trial",
-      "key-press": event.which,
-      action: response,
-      "End Location": this.state["agent1"].location,
-      rt: rt, //
-      action_map: "", // action_mapping,
-      "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
-    });
+    // // Record in psiturk (work in progress)
+    // psiTurk.recordTrialData(
+    //     {
+    //         'phase': 'Demo Trial',
+    //         'key-press': event.which,
+    //         'action': response,
+    //         'End Location': this.state['agent1'].location,
+    //         'rt': rt, //
+    //         'action_map': '', // action_mapping,
+    //         'In Goal': this.mdp.inGoal(nextState[agent]['location'], agent)
+    //     }
+    // );
 
     //note: you need a closure in order to properly reset
     var reset_key_handler = (function (key_handler) {
@@ -269,16 +270,18 @@ var demo_responseHandler_generator_endDemo = function (action_mapping) {
 
     $(document).unbind("keydown.gridworld");
 
-    // Record data
-    trial_data.append({
-      phase: "Demo Trial",
-      "key-press": event.which,
-      action: response,
-      "End Location": this.state["agent1"].location,
-      rt: rt,
-      action_map: action_mapping,
-      "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
-    });
+    // // Record in psiturk (work in progress)
+    // psiTurk.recordTrialData({
+    //   phase: "Demo Trial",
+    //   "key-press": event.which,
+    //   action: response,
+    //   "End Location": this.state["agent1"].location,
+    //   rt: rt,
+    //   action_map: action_mapping,
+    //   "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
+    // });
+    // TODO log demo trail data?
+    console.log("SAVE TRIAL DATA GOES HERE");
 
     //note: you need a closure in order to properly reset
     var reset_key_handler = (function (key_handler) {
@@ -445,7 +448,7 @@ responseHandlerGenerator = function (action_mapping) {
       }
     }
 
-    // Record
+    // Record in psiturk (work in progress)
     // run test conditions to reduce size of information in the data:
 
     var goal_locations_to_save;
@@ -468,29 +471,29 @@ responseHandlerGenerator = function (action_mapping) {
       color_to_save = [];
     }
 
-    // Save data to JSON
-    trial_data.append({
-      Context: this.context,
-      "Start Location": startLocation,
-      "Key-press": event.which,
-      "End Location": this.state["agent1"].location,
-      "Action Map": mapping_to_save,
-      Walls: walls_to_save,
-      Action: response, // this is the cardinal direction taken
-      Reward: goal_value,
-      "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
-      "Chosen Goal": goal_id,
-      "Displayed Goal Label": goal_display_label,
-      "Steps Taken": this.actions_taken,
-      "Goal Locations": goal_locations_to_save,
-      "Trial Number": trial_number,
-      "Times Seen Context": this.times_seen_context,
-      phase: "Experiment",
-      rt: rt,
-      // 'n actions taken': this.actions_taken,
-      // these are general trial information
-      agent_color: color_to_save,
-    });
+    // TODO: Replace datarecording
+    // psiTurk.recordTrialData({
+    //   Context: this.context,
+    //   "Start Location": startLocation,
+    //   "Key-press": event.which,
+    //   "End Location": this.state["agent1"].location,
+    //   "Action Map": mapping_to_save,
+    //   Walls: walls_to_save,
+    //   Action: response, // this is the cardinal direction taken
+    //   Reward: goal_value,
+    //   "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
+    //   "Chosen Goal": goal_id,
+    //   "Displayed Goal Label": goal_display_label,
+    //   "Steps Taken": this.actions_taken,
+    //   "Goal Locations": goal_locations_to_save,
+    //   "Trial Number": trial_number,
+    //   "Times Seen Context": this.times_seen_context,
+    //   phase: "Experiment",
+    //   rt: rt,
+    //   // 'n actions taken': this.actions_taken,
+    //   // these are general trial information
+    //   agent_color: color_to_save,
+    // });
 
     //note: you need a closure in order to properly reset
     // goal check, then reset key handler
