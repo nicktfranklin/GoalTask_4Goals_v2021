@@ -155,6 +155,7 @@ var LoadInstructions2 = function () {
     };
   };
   // load the html, run the callback function
+  console.log("loading_page_2");
   loadPage(
     "./static/templates/instructions/instruct-experiment2.html",
     callback
@@ -198,6 +199,8 @@ var Experiment = function () {
 
   var init = function () {
     console.log("experiment init called");
+
+    // psiTurk.showPage('stage.html');
 
     for (var i = 0; i < trials.length; i++) {
       trials[i].task_display = document.getElementById("task_display");
@@ -258,6 +261,7 @@ var Experiment = function () {
 
           // allow_response = true;
           move_to_next_trial = false;
+          console.log("check continue");
 
           setTimeout(function () {
             $(document).bind("keydown.continue", next);
@@ -270,14 +274,15 @@ var Experiment = function () {
   var finish = function () {
     //$("body").unbind("keydown.continue"); // Unbind keys
     $("body").unbind(); // Unbind keys
-
-    trial_data.append({
-      phase: "Points Collected",
-      "Total Points": total_points,
-    });
+    // psiTurk.recordTrialData(
+    //     {
+    //         'phase': 'Points Collected',
+    //         'Total Points': total_points
+    //     });
 
     // add error handeling...
     // psiTurk.saveData();
+    // current_view = new RewardFeedback_experiment();
     var error_message =
       "<h1>Oops!</h1><p>Something went wrong submitting your HIT. This might happen if you " +
       "lose your internet connection." +
@@ -333,7 +338,6 @@ var RewardFeedback_experiment = function () {
  * Questionnaire *
  ****************/
 var record_responses;
-var questionnaire_responses = [];
 
 var savedata;
 var finish;
@@ -423,7 +427,7 @@ var aqQuestionnaire = function () {
       q9: document.getElementById("q9").value,
       q10: document.getElementById("q10").value,
     };
-    questionnaire_responses.append({ "aq-questionaire": aq_responses });
+    console.log(aq_responses);
   };
 
   prompt_resubmit = function () {
@@ -462,9 +466,7 @@ var DemographicsQuestionnaire = function () {
       hispanic: document.getElementById("hispanic").value,
     };
 
-    questionnaire_responses.append({
-      "demographics-questionaire": demographics,
-    });
+    console.log(demographics);
   };
 
   prompt_resubmit = function () {
@@ -514,7 +516,7 @@ var TaskQuestionnaire = function () {
       strategy: document.getElementById("strategy").value,
       freeform: document.getElementById("freeform").value,
     };
-    questionnaire_responses.append({ "task-questionaire": task_responses });
+    console.log(task_responses);
   };
 
   prompt_resubmit = function () {

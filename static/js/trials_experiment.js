@@ -867,6 +867,7 @@ var Trial = function (
   color_list,
   key_handler,
   initText,
+  task_display,
   text_display
 ) {
   this.gridworld = gridworld;
@@ -998,6 +999,7 @@ while (context_queue.length > 0) {
       "</span></span><br> " +
       '<span style="color: #707070"><span style="font-style: italic">Use the <b>a</b>, <b>s</b>,' +
       " <b>d</b>, <b>f</b>, and <b>j</b>, <b>k</b>, <b>l</b>, <b>;</b> keys to move.</span></span>",
+    "#task_display",
     "#trial_text"
   );
 
