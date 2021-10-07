@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -15,7 +15,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase. initializeApp(firebaseConfig);
 
 // error handeling 
 firebase.firestore().enablePersistence()
@@ -35,6 +35,9 @@ firebase.auth().signInAnonymously();
 // User ID
 var uid;
 
+// setup the database
+var db = firebase.firestore();
+
 // When signed in, get the user ID
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -42,13 +45,8 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-// setup the database
-var db = firebase.firestore();
+// This Random subject ID will need to be replaced with a prolific ID
+var subjID = '7' + Math.random().toString().substring(3,8);
 
-// Dummy code for now to set the database. This passes a subject ID, date and time to the 
-// database
-db.collection("tasks").doc('new_task').collection('subjects').doc(uid).set({
-    subjectID: subjectID,  // this refers to the subject's ID from prolific
-    date: new Date().toLocaleDateString(),
-    time: new Date().toLocaleTimeString()
-})
+
+

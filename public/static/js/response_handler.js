@@ -106,6 +106,12 @@ demo_responseHandlerGenerator = function (action_mapping) {
       "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
     });
 
+    // Update firebase
+    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+      trial_data: trial_data,
+   })
+
+
     var reset_key_handler;
     if (this.mdp.inGoal(nextState[agent]["location"], agent)) {
       reset_key_handler = (function () {
@@ -199,6 +205,10 @@ var demo_responseHandler_generator_noReachableAction = function (
       action_map: "", // action_mapping,
       "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
     });
+    // Update firebase
+    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+      trial_data: trial_data,
+    })
 
     //note: you need a closure in order to properly reset
     var reset_key_handler = (function (key_handler) {
@@ -279,6 +289,10 @@ var demo_responseHandler_generator_endDemo = function (action_mapping) {
       action_map: action_mapping,
       "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
     });
+    // Update firebase
+    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+      trial_data: trial_data,
+    })
 
     //note: you need a closure in order to properly reset
     var reset_key_handler = (function (key_handler) {
@@ -491,6 +505,10 @@ responseHandlerGenerator = function (action_mapping) {
       // these are general trial information
       agent_color: color_to_save,
     });
+    // Update firebase
+    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+      trial_data: trial_data,
+    })
 
     //note: you need a closure in order to properly reset
     // goal check, then reset key handler

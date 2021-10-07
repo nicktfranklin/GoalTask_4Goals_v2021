@@ -4,6 +4,9 @@
  */
 "use strict";
 
+var questionnaire_responses = [];
+
+
 /********************
  * Welcome      *
  ********************/
@@ -21,6 +24,14 @@ var LoadWelcome = function () {
 var LoadConsent = function () {
   var callback = function () {
     set_onclick_function("next", function () {
+      // once the subject agrees to the consent, mark the time and start recording data
+      db.collection("tasks").doc('new_task').collection('subjects').doc(uid).set({
+        subjectID: subjID,  // this refers to the subject's ID from prolific
+        date: new Date().toLocaleDateString(),
+        start_time: new Date().toLocaleTimeString(),
+        trial_data: trial_data,
+        questionnaire_responses: questionnaire_responses,
+     })
       current_view = new DemographicsQuestionnaire();
     });
   };
@@ -333,7 +344,6 @@ var RewardFeedback_experiment = function () {
  * Questionnaire *
  ****************/
 var record_responses;
-var questionnaire_responses = [];
 
 var savedata;
 var finish;
@@ -387,13 +397,13 @@ var InstructionsQuestionnaire = function () {
           start_experiment();
           $("#my_head").html(
             '<span style="font-weight: bold"><span style="color: blue">Great Job!</span></span> ' +
-              "<br>Start the experiment when you are ready!"
+            "<br>Start the experiment when you are ready!"
           );
         } else {
           $("#my_head").html(
             '<span style="font-weight: bold"><span style="color: red">Try again!</span></span> ' +
-              "Select the right answers before you continue<br>You can go back and read the " +
-              "instructions again if you don't remember."
+            "Select the right answers before you continue<br>You can go back and read the " +
+            "instructions again if you don't remember."
           );
         }
       });
@@ -424,6 +434,10 @@ var aqQuestionnaire = function () {
       q10: document.getElementById("q10").value,
     };
     questionnaire_responses.append({ "aq-questionaire": aq_responses });
+    // Update firebase
+    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+      questionnaire_responses: questionnaire_responses,
+    })
   };
 
   prompt_resubmit = function () {
@@ -465,6 +479,10 @@ var DemographicsQuestionnaire = function () {
     questionnaire_responses.append({
       "demographics-questionaire": demographics,
     });
+    // Update firebase
+    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+      questionnaire_responses: questionnaire_responses,
+    })
   };
 
   prompt_resubmit = function () {
@@ -515,6 +533,10 @@ var TaskQuestionnaire = function () {
       freeform: document.getElementById("freeform").value,
     };
     questionnaire_responses.append({ "task-questionaire": task_responses });
+    // Update firebase
+    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+      questionnaire_responses: questionnaire_responses,
+    })
   };
 
   prompt_resubmit = function () {
@@ -528,7 +550,11 @@ var TaskQuestionnaire = function () {
   };
 
   finish = function () {
-    loadPage("static/templates/end.html", function () {});
+    loadPage("static/templates/end.html", function () { });
+    // Update firebase
+    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+      end_time: new Date().toLocaleTimeString(),
+    })
   };
 
   // Load the questionnaire snippet
