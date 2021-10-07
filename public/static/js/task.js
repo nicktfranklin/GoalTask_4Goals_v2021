@@ -282,7 +282,7 @@ var Experiment = function () {
     //$("body").unbind("keydown.continue"); // Unbind keys
     $("body").unbind(); // Unbind keys
 
-    trial_data.append({
+    trial_data.push({
       phase: "Points Collected",
       "Total Points": total_points,
     });
@@ -433,7 +433,7 @@ var aqQuestionnaire = function () {
       q9: document.getElementById("q9").value,
       q10: document.getElementById("q10").value,
     };
-    questionnaire_responses.append({ "aq-questionaire": aq_responses });
+    questionnaire_responses.push({ "aq-questionaire": aq_responses });
     // Update firebase
     db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
       questionnaire_responses: questionnaire_responses,
@@ -476,7 +476,7 @@ var DemographicsQuestionnaire = function () {
       hispanic: document.getElementById("hispanic").value,
     };
 
-    questionnaire_responses.append({
+    questionnaire_responses.push({
       "demographics-questionaire": demographics,
     });
     // Update firebase
@@ -532,7 +532,7 @@ var TaskQuestionnaire = function () {
       strategy: document.getElementById("strategy").value,
       freeform: document.getElementById("freeform").value,
     };
-    questionnaire_responses.append({ "task-questionaire": task_responses });
+    questionnaire_responses.push({ "task-questionaire": task_responses });
     // Update firebase
     db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
       questionnaire_responses: questionnaire_responses,

@@ -96,7 +96,7 @@ demo_responseHandlerGenerator = function (action_mapping) {
     }
 
     // Record data
-    trial_data.append({
+    trial_data.push({
       phase: "Demo Trial",
       "key-press": event.which,
       action: response,
@@ -196,7 +196,7 @@ var demo_responseHandler_generator_noReachableAction = function (
     $(document).unbind("keydown.gridworld");
 
     // Record
-    trial_data.append({
+    trial_data.push({
       phase: "Demo Trial",
       "key-press": event.which,
       action: response,
@@ -280,7 +280,7 @@ var demo_responseHandler_generator_endDemo = function (action_mapping) {
     $(document).unbind("keydown.gridworld");
 
     // Record data
-    trial_data.append({
+    trial_data.push({
       phase: "Demo Trial",
       "key-press": event.which,
       action: response,
@@ -483,7 +483,7 @@ responseHandlerGenerator = function (action_mapping) {
     }
 
     // Save data to JSON
-    trial_data.append({
+    trial_data.push({
       Context: this.context,
       "Start Location": startLocation,
       "Key-press": event.which,
