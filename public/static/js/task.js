@@ -25,7 +25,7 @@ var LoadConsent = function () {
   var callback = function () {
     set_onclick_function("next", function () {
       // once the subject agrees to the consent, mark the time and start recording data
-      db.collection("tasks").doc('new_task').collection('subjects').doc(uid).set({
+      db.collection("tasks").doc(task_name).collection('subjects').doc(uid).set({
         subjectID: subjID,  // this refers to the subject's ID from prolific
         date: new Date().toLocaleDateString(),
         start_time: new Date().toLocaleTimeString(),
@@ -95,7 +95,6 @@ var Tutorial = function () {
 
         if (typeof curBlock !== "undefined") {
           var restart = curBlock.restart;
-          console.log(restart);
           setTimeout(curBlock.end(), 10);
         }
 
@@ -435,7 +434,7 @@ var aqQuestionnaire = function () {
     };
     questionnaire_responses.push({ "aq-questionaire": aq_responses });
     // Update firebase
-    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
       questionnaire_responses: questionnaire_responses,
     })
   };
@@ -480,7 +479,7 @@ var DemographicsQuestionnaire = function () {
       "demographics-questionaire": demographics,
     });
     // Update firebase
-    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
       questionnaire_responses: questionnaire_responses,
     })
   };
@@ -534,7 +533,7 @@ var TaskQuestionnaire = function () {
     };
     questionnaire_responses.push({ "task-questionaire": task_responses });
     // Update firebase
-    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
       questionnaire_responses: questionnaire_responses,
     })
   };
@@ -552,7 +551,7 @@ var TaskQuestionnaire = function () {
   finish = function () {
     loadPage("static/templates/end.html", function () { });
     // Update firebase
-    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
       end_time: new Date().toLocaleTimeString(),
     })
   };

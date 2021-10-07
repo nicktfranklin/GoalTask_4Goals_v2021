@@ -107,7 +107,7 @@ demo_responseHandlerGenerator = function (action_mapping) {
     });
 
     // Update firebase
-    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
       trial_data: trial_data,
    })
 
@@ -206,7 +206,7 @@ var demo_responseHandler_generator_noReachableAction = function (
       "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
     });
     // Update firebase
-    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
       trial_data: trial_data,
     })
 
@@ -290,7 +290,7 @@ var demo_responseHandler_generator_endDemo = function (action_mapping) {
       "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
     });
     // Update firebase
-    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
       trial_data: trial_data,
     })
 
@@ -506,7 +506,7 @@ responseHandlerGenerator = function (action_mapping) {
       agent_color: color_to_save,
     });
     // Update firebase
-    db.collection("tasks").doc('new_task').collection('subjects').doc(uid).update({
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
       trial_data: trial_data,
     })
 
