@@ -4,14 +4,14 @@
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCPjWo_R_5z5HW-arUVtmvN5LhCVHxIFmw",
-  authDomain: "austimstudy.firebaseapp.com",
-  databaseURL: "https://austimstudy-default-rtdb.firebaseio.com",
-  projectId: "austimstudy",
-  storageBucket: "austimstudy.appspot.com",
-  messagingSenderId: "361964294732",
-  appId: "1:361964294732:web:914fe1da9d9b80a7f91ae9"
+  apiKey: "AIzaSyAvitJwdzZJb5UTOV1xa73pwWBw7ws9yPE",
+  authDomain: "maze-task.firebaseapp.com",
+  projectId: "maze-task",
+  storageBucket: "maze-task.appspot.com",
+  messagingSenderId: "833236089000",
+  appId: "1:833236089000:web:ae727d00645c4edbfb6a9d"
 };
 
 // Initialize Firebase
@@ -47,6 +47,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 // This Random subject ID will need to be replaced with a prolific ID
 var subjID = '7' + Math.random().toString().substring(3,8);
-var task_name = 'test-task';
+var task_name = 'new_task';
 
 

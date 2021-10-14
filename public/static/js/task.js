@@ -25,6 +25,7 @@ var LoadConsent = function () {
   var callback = function () {
     set_onclick_function("next", function () {
       // once the subject agrees to the consent, mark the time and start recording data
+      console.log(uid);
       db.collection("tasks").doc(task_name).collection('subjects').doc(uid).set({
         subjectID: subjID,  // this refers to the subject's ID from prolific
         date: new Date().toLocaleDateString(),
