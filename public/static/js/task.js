@@ -24,20 +24,38 @@ var LoadWelcome = function () {
 var LoadConsent = function () {
   var callback = function () {
     set_onclick_function("next", function () {
-      // once the subject agrees to the consent, mark the time and start recording data
-      console.log(uid);
-      db.collection("tasks").doc(task_name).collection('subjects').doc(uid).set({
-        subjectID: subjID,  // this refers to the subject's ID from prolific
-        date: new Date().toLocaleDateString(),
-        start_time: new Date().toLocaleTimeString(),
-        trial_data: trial_data,
-        questionnaire_responses: questionnaire_responses,
-     })
-      current_view = new DemographicsQuestionnaire();
+      current_view = new LoadProlificId();
     });
   };
   loadPage("./static/consent.html", callback);
 };
+
+var LoadProlificId = function () {
+  record_responses = function () {
+    var subjectID = document.getElementById("subj_id").value;
+    console.log(subjectID);
+
+    // Update firebase   
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).set({
+      subjectID: subjectID,  // this refers to the subject's ID from prolific
+      date: new Date().toLocaleDateString(),
+      start_time: new Date().toLocaleTimeString(),
+      trial_data: trial_data,
+      questionnaire_responses: questionnaire_responses,
+    })
+  };
+
+  var callback = function () {
+    set_onclick_function("next", function () {
+      // once the subject enters their ID, mark the time and start recording data
+      console.log(uid);
+      record_responses();
+      current_view = new DemographicsQuestionnaire();
+    });
+  };
+  loadPage("./static/questionnaires/questionnaire-prolific.html", callback);
+};
+
 
 var LoadWelcome2 = function () {
   // this call back function is called once the html is loaded...
@@ -111,7 +129,6 @@ var Tutorial = function () {
         move_to_next_trial = false;
 
         setTimeout(function () {
-          console.log("end demo trial");
           $(document).bind("keydown.continue", next);
         }, 10);
       }

@@ -45,8 +45,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-// This Random subject ID will need to be replaced with a prolific ID
-var subjID = '7' + Math.random().toString().substring(3,8);
+// Firebase table name
 var task_name = 'new_task';
 
 
