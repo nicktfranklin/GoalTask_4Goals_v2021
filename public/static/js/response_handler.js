@@ -370,7 +370,6 @@ responseHandlerGenerator = function (action_mapping) {
         );
         goal_id = this.mdp.getGoalID(nextState[agent]["location"], agent);
         this.total_points += goal_value;
-        console.log("Goal: " + goal_id + ", Label: " + goal_display_label);
 
         // if agent is in goal state, celebrate.
         var celebrateGoal = (function (
@@ -469,15 +468,12 @@ responseHandlerGenerator = function (action_mapping) {
       goal_locations_to_save = [];
     }
 
-    var walls_to_save;
     var mapping_to_save;
     var color_to_save;
     if (this.times_seen_context == 1) {
       mapping_to_save = action_mapping;
-      walls_to_save = this.gridworld.walls;
       color_to_save = this.painter.AGENT_COLORS["agent1"];
     } else {
-      walls_to_save = [];
       mapping_to_save = [];
       color_to_save = [];
     }
@@ -489,7 +485,6 @@ responseHandlerGenerator = function (action_mapping) {
       "Key-press": event.which,
       "End Location": this.state["agent1"].location,
       "Action Map": mapping_to_save,
-      Walls: walls_to_save,
       Action: response, // this is the cardinal direction taken
       Reward: goal_value,
       "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
@@ -501,8 +496,6 @@ responseHandlerGenerator = function (action_mapping) {
       "Times Seen Context": this.times_seen_context,
       phase: "Experiment",
       rt: rt,
-      // 'n actions taken': this.actions_taken,
-      // these are general trial information
       agent_color: color_to_save,
     });
     // Update firebase

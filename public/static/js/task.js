@@ -280,7 +280,6 @@ var Experiment = function () {
           curBlock.times_seen_context = times_seen_context[curBlock.context];
 
           setTimeout(curBlock.start(), 10);
-          //console.log(curBlock.colors);
           console.log("Running trail: " + trial_number);
           console.log("Trials left: " + trials.length);
 
@@ -511,13 +510,6 @@ var DemographicsQuestionnaire = function () {
     replaceBody("<h1>Trying to resubmit...</h1>");
     reprompt = setTimeout(prompt_resubmit, 10000);
 
-    // psiTurk.saveData({
-    //   success: function () {
-    //     clearInterval(reprompt);
-    //     current_view = aqQuestionnaire();
-    //   },
-    //   error: prompt_resubmit,
-    // });
   };
 
   // Load the questionnaire snippet
