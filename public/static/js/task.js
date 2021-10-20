@@ -32,7 +32,7 @@ var LoadConsent = function () {
 
 var LoadProlificId = function () {
   record_responses = function () {
-    var subjectID = document.getElementById("subj_id").value;
+    var subjectID = document.getElementById("subjectID").value;
     console.log(subjectID);
 
     // Update firebase   
@@ -282,6 +282,14 @@ var Experiment = function () {
           setTimeout(curBlock.start(), 10);
           console.log("Running trail: " + trial_number);
           console.log("Trials left: " + trials.length);
+          
+          // Update firebase every 10 trials
+          if (trial_number % 10 == 0){
+            db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
+              trial_data: trial_data,
+            })
+          }
+
 
           // allow_response = true;
           move_to_next_trial = false;
@@ -295,45 +303,14 @@ var Experiment = function () {
   };
 
   var finish = function () {
-    //$("body").unbind("keydown.continue"); // Unbind keys
     $("body").unbind(); // Unbind keys
 
-    trial_data.push({
-      phase: "Points Collected",
-      "Total Points": total_points,
-    });
+    // Update firebase
+    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
+      trial_data: trial_data,
+    })
+    
 
-    // add error handeling...
-    // psiTurk.saveData();
-    var error_message =
-      "<h1>Oops!</h1><p>Something went wrong submitting your HIT. This might happen if you " +
-      "lose your internet connection." +
-      "Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
-
-    prompt_resubmit = function () {
-      replaceBody(error_message);
-      $("#resubmit").click(resubmit);
-    };
-
-    resubmit = function () {
-      replaceBody("<h1>Trying to resubmit...</h1>");
-      reprompt = setTimeout(prompt_resubmit, 10000);
-
-      // psiTurk.saveData({
-      //   success: function () {
-      //     clearInterval(reprompt);
-      //     current_view = new RewardFeedback_experiment();
-      //   },
-      //   error: prompt_resubmit,
-      // });
-    };
-
-    // psiTurk.saveData({
-    //   success: function () {
-    //     current_view = new RewardFeedback_experiment();
-    //   },
-    //   error: prompt_resubmit,
-    // });
     current_view = new RewardFeedback_experiment();
   };
 

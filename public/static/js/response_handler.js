@@ -498,10 +498,6 @@ responseHandlerGenerator = function (action_mapping) {
       rt: rt,
       agent_color: color_to_save,
     });
-    // Update firebase
-    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
-      trial_data: trial_data,
-    })
 
     //note: you need a closure in order to properly reset
     // goal check, then reset key handler
