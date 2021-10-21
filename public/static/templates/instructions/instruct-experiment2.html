@@ -1,9 +1,9 @@
-<div id="container-instructions">
-  <h1>Instructions</h1>
-
-  <hr />
-
-  <div class="instructions_text">
+<div id="container-exp">
+  <div id="instructions_header">
+    <h1>Instructions</h1>
+  </div>
+  <div id="instructions_text">
+    <br /><br />
     <p>
       You will see many mazes with different color goals and these colors will
       be repeated throughout the game. The color of a maze controls the rules of
@@ -19,46 +19,20 @@
       maze, "A" will be worth 10 points in every other green maze you see.
     </p>
     <br />
-
-    <p>
-      You don't need to learn where goals are on the map. A goal's letter
-      (either A, B, C or D) determines its value and the location is not
-      important.
-    </p>
-
   </div>
-
-  <hr />
-
-  <div class="instructionsnav">
-    <div class="row">
-      <div class="col-xs-2">
-        <div class="left">
-          <button
-            type="button"
-            id="previous"
-            value="previous"
-            class="btn btn-primary btn-lg previous"
-          >
-            <span class="glyphicon glyphicon-arrow-left"></span> Previous
-          </button>
-        </div>
-      </div>
-      <div class="col-xs-11">
-        <div class="right">
-          <button
-            type="button"
-            id="next"
-            value="next"
-            class="btn btn-primary btn-lg continue"
-          >
-            Next <span class="glyphicon glyphicon-arrow-right"></span>
-          </button>
+  <div id="instructions_bottom">
+    <div class="instructionsnav">
+      <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-7"></div>
+        <div class="col-xs-3">
+          <div class="right">
+            <button type="button" id="next" value="next" class="btn btn-primary btn-lg continue">
+              Next <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <script type='text/javascript'>
-    console.log('loaded');
-  </script>
 </div>

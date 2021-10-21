@@ -14,7 +14,7 @@ var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      current_view = new LoadConsent();
+      current_view = new LoadWelcome2();
     });
   };
   // load the html, run the callback function
@@ -61,7 +61,7 @@ var LoadWelcome2 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      current_view = new Tutorial();
+      current_view = new LoadEndTutorial();
     });
   };
   // load the html, run the callback function
