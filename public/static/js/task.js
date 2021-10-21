@@ -14,7 +14,7 @@ var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      current_view = new LoadWelcome2();
+      current_view = new LoadConsent();
     });
   };
   // load the html, run the callback function
@@ -61,7 +61,7 @@ var LoadWelcome2 = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      current_view = new LoadEndTutorial();
+      current_view = new Tutorial();
     });
   };
   // load the html, run the callback function
@@ -282,9 +282,9 @@ var Experiment = function () {
           setTimeout(curBlock.start(), 10);
           console.log("Running trail: " + trial_number);
           console.log("Trials left: " + trials.length);
-          
+
           // Update firebase every 10 trials
-          if (trial_number % 10 == 0){
+          if (trial_number % 10 == 0) {
             db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
               trial_data: trial_data,
             })
@@ -309,7 +309,7 @@ var Experiment = function () {
     db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
       trial_data: trial_data,
     })
-    
+
 
     current_view = new RewardFeedback_experiment();
   };
