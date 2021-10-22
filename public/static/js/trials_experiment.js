@@ -168,8 +168,8 @@ function randomize_context_queue(context_balance, repeat_prob) {
 }
 
 // This is the first half of the contexts
-var context_queue = randomize_context_queue(balance1.slice(), 0.5);
-var block_two = randomize_context_queue(balance1.slice(), 0.3);
+var context_queue = randomize_context_queue(balance1.slice(), 0.75);
+var block_two = randomize_context_queue(balance1.slice(), 0.5);
 var block_three = randomize_context_queue(balance2.slice(), 0.15);
 var block_four = randomize_context_queue(balance2.slice(), 0.08);
 
