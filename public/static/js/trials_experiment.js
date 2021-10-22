@@ -921,16 +921,6 @@ while (context_queue.length > 0) {
   // take the context number from the queue
   ctx = context_queue.shift();
 
-  // define the walls (or absence of walls)
-  // var wall_set;
-  // if (Math.random() < wall_probability) {
-  //     // pick a random wall set (a, b, or c)
-  //     var wall_sets = [make_wall_set_a, make_wall_set_b, make_wall_set_c];
-  //     wall_sets = _.shuffle(wall_sets);
-  //     wall_set = wall_sets.pop()();
-  // } else {
-  //     wall_set = [];
-  // }
   var wall_set = context_walls[ctx];
 
   // define the goal locations and the agent start location
@@ -989,15 +979,15 @@ while (context_queue.length > 0) {
     contexts[ctx].response_handler, //response handler
     //initial text, display id, message id
     'Which goal is the best?<span style="font-size:150%"></span><br>' +
-      '<span style="color:' +
-      contexts[ctx].color +
-      '">' +
-      '<span style="font-size:150%"><span style="font-weight: bold">' +
-      "Room " +
-      ctx +
-      "</span></span><br> " +
-      '<span style="color: #707070"><span style="font-style: italic">Use the <b>a</b>, <b>s</b>,' +
-      " <b>d</b>, <b>f</b>, and <b>j</b>, <b>k</b>, <b>l</b>, <b>;</b> keys to move.</span></span>",
+    '<span style="color:' +
+    contexts[ctx].color +
+    '">' +
+    '<span style="font-size:150%"><span style="font-weight: bold">' +
+    "Room " +
+    ctx +
+    "</span></span><br> " +
+    '<span style="color: #707070"><span style="font-style: italic">Use the <b>a</b>, <b>s</b>,' +
+    " <b>d</b>, <b>f</b>, and <b>j</b>, <b>k</b>, <b>l</b>, <b>;</b> keys to move.</span></span>",
     "#trial_text"
   );
 
