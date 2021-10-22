@@ -104,6 +104,11 @@ var Tutorial = function () {
         $(document).unbind("keydown.continue");
         $(document).unbind("keydown.gridworld");
 
+        // Update firebase
+        db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
+          trial_data: trial_data,
+        })
+
         // Go to next
         current_view = new LoadEndTutorial();
       } else {
@@ -325,7 +330,6 @@ var RewardFeedback_experiment = function () {
     $("#points").html(total_points);
 
     set_onclick_function("next", function () {
-      // current_view = new LoadConsent();
       current_view = new TaskQuestionnaire();
     });
   };

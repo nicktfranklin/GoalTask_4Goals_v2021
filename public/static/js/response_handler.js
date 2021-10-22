@@ -90,7 +90,6 @@ demo_responseHandlerGenerator = function (action_mapping) {
             })(th)
           );
 
-          console.log("check end");
         }
       }
     }
@@ -105,11 +104,6 @@ demo_responseHandlerGenerator = function (action_mapping) {
       action_map: action_mapping,
       "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
     });
-
-    // Update firebase
-    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
-      trial_data: trial_data,
-   })
 
 
     var reset_key_handler;
