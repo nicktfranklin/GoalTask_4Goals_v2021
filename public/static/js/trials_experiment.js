@@ -121,10 +121,10 @@ function shuffle_keys() {
 var goal_display_label_key = shuffle_keys();
 
 // var n_ctx = contexts.length;
-var initial_block = [2, 1, 1, 2, 2, 4, 4]; // these are trippled
-var block_size = 3;
-var balance1 = [6, 3, 3, 6, 6, 12, 12]; // Used once 
-var balance2 = [4, 2, 2, 4, 4, 8, 8]; // these numbers are doubled!
+var initial_block = [2, 1, 1, 2, 2, 4, 4]; // these are quadrupeled (units = 1x4 of 10)
+var block_one_size = 4;
+var block_two_size = 2;
+var context_balance = [4, 2, 2, 4, 4, 8, 8]; // these numbers are doubled!; total = 32 (units = 2x3 of 10)
 var test_balance = [6, 6, 6, 6]; // these numbers are not doubled
 var trial_tile_size = 70;
 
@@ -143,7 +143,7 @@ function generate_randomized_blocks(context_balance, block_size) {
 
   // populate the blocks
   var context_queue = [];
-  for (var ii = 0; ii < context_balance.length; ii++) {
+  for (var ii = 0; ii < bag_of_contexts.length; ii++) {
     for (var jj = 0; jj < block_size; jj++) {
       context_queue.push(bag_of_contexts[ii]);
     }
@@ -193,10 +193,10 @@ function randomize_context_queue(context_balance, repeat_prob) {
 }
 
 // This is the first half of the contexts
-var context_queue = generate_randomized_blocks(initial_block, block_size);
-var block_two = randomize_context_queue(balance1.slice(), 0.5);
-var block_three = randomize_context_queue(balance2.slice(), 0.15);
-var block_four = randomize_context_queue(balance2.slice(), 0.08);
+var context_queue = generate_randomized_blocks(initial_block.slice(), block_one_size);
+var block_two = generate_randomized_blocks(initial_block.slice(), block_two_size);
+var block_three = randomize_context_queue(context_balance.slice(), 0.15);
+var block_four = randomize_context_queue(context_balance.slice(), 0.08);
 
 for (ii = 0; ii < block_two.length; ii++) {
   context_queue.push(block_two[ii]);
@@ -207,12 +207,13 @@ for (ii = 0; ii < block_three.length; ii++) {
 for (ii = 0; ii < block_four.length; ii++) {
   context_queue.push(block_four[ii]);
 }
+console.log(context_queue.length);
 
 // add the test contexts (fully randomized order)
 var bag_of_test_contexts = [];
 for (var ii = 0; ii < test_balance.length; ii++) {
   for (var jj = 0; jj < test_balance[ii]; jj++) {
-    bag_of_test_contexts.push(ii + balance1.length);
+    bag_of_test_contexts.push(ii + context_balance.length);
   }
 }
 
