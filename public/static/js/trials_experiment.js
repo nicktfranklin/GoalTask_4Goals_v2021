@@ -121,10 +121,35 @@ function shuffle_keys() {
 var goal_display_label_key = shuffle_keys();
 
 // var n_ctx = contexts.length;
-var balance1 = [6, 3, 3, 6, 6, 12, 12]; // these numbers are doubled!
+var initial_block = [2, 1, 1, 2, 2, 4, 4]; // these are trippled
+var block_size = 3;
+var balance1 = [6, 3, 3, 6, 6, 12, 12]; // Used once 
 var balance2 = [4, 2, 2, 4, 4, 8, 8]; // these numbers are doubled!
 var test_balance = [6, 6, 6, 6]; // these numbers are not doubled
 var trial_tile_size = 70;
+
+
+function generate_randomized_blocks(context_balance, block_size) {
+
+  // generate a bag of contexts and randomize the order
+  var bag_of_contexts = [];
+  for (var ii = 0; ii < context_balance.length; ii++) {
+    for (var jj = 0; jj < context_balance[ii]; jj++) {
+      bag_of_contexts.push(ii);
+    }
+  }
+
+  bag_of_contexts = _.shuffle(bag_of_contexts); // randomize the order
+
+  // populate the blocks
+  var context_queue = [];
+  for (var ii = 0; ii < context_balance.length; ii++) {
+    for (var jj = 0; jj < block_size; jj++) {
+      context_queue.push(bag_of_contexts[ii]);
+    }
+  }
+  return context_queue;
+};
 
 /* New! Randomization Algorithm */
 function randomize_context_queue(context_balance, repeat_prob) {
@@ -168,7 +193,7 @@ function randomize_context_queue(context_balance, repeat_prob) {
 }
 
 // This is the first half of the contexts
-var context_queue = randomize_context_queue(balance1.slice(), 0.75);
+var context_queue = generate_randomized_blocks(initial_block, block_size);
 var block_two = randomize_context_queue(balance1.slice(), 0.5);
 var block_three = randomize_context_queue(balance2.slice(), 0.15);
 var block_four = randomize_context_queue(balance2.slice(), 0.08);
