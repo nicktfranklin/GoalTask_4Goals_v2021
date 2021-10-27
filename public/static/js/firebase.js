@@ -46,6 +46,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 // Firebase table name
-var task_name = 'new_task';
+var task_name = 'live_pilot';
 
 

@@ -14,8 +14,7 @@ var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      // current_view = new LoadConsent();
-      current_view = new Finish();
+      current_view = new LoadConsent();
     });
   };
   // load the html, run the callback function
