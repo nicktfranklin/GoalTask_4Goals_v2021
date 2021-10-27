@@ -207,7 +207,6 @@ for (ii = 0; ii < block_three.length; ii++) {
 for (ii = 0; ii < block_four.length; ii++) {
   context_queue.push(block_four[ii]);
 }
-console.log(context_queue.length);
 
 // add the test contexts (fully randomized order)
 var bag_of_test_contexts = [];

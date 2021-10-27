@@ -14,7 +14,8 @@ var LoadWelcome = function () {
   // this call back function is called once the html is loaded...
   var callback = function () {
     set_onclick_function("next", function () {
-      current_view = new LoadConsent();
+      // current_view = new LoadConsent();
+      current_view = new Finish();
     });
   };
   // load the html, run the callback function
@@ -539,21 +540,26 @@ var TaskQuestionnaire = function () {
     reprompt = setTimeout(prompt_resubmit, 10000);
   };
 
-  finish = function () {
-    loadPage("static/templates/end.html", function () { });
-    // Update firebase
-    db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
-      end_time: new Date().toLocaleTimeString(),
-    })
-  };
-
   // Load the questionnaire snippet
   loadPage("static/questionnaires/questionnaire-task.html", function () {
     $("#next").click(function () {
       record_responses();
-      finish();
+      current_view = Finish();
     });
   });
+};
+
+var Finish = function () {
+  var callback = function () {
+    set_onclick_function("next", function () {
+      window.location.href = "https://app.prolific.co/submissions/complete?cc=9315A0EE";
+    });
+  };
+  loadPage("static/templates/end.html", callback);
+  // Update firebase
+  db.collection("tasks").doc(task_name).collection('subjects').doc(uid).update({
+    end_time: new Date().toLocaleTimeString(),
+  })
 };
 
 // Task object to keep track of the current phase
