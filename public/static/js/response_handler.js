@@ -466,9 +466,11 @@ responseHandlerGenerator = function (action_mapping) {
     var color_to_save;
     if (this.times_seen_context == 1) {
       mapping_to_save = action_mapping;
+      walls_to_save = this.gridworld.walls;
       color_to_save = this.painter.AGENT_COLORS["agent1"];
     } else {
       mapping_to_save = [];
+      walls_to_save = [];
       color_to_save = [];
     }
 
@@ -479,6 +481,7 @@ responseHandlerGenerator = function (action_mapping) {
       "Key-press": event.which,
       "End Location": this.state["agent1"].location,
       "Action Map": mapping_to_save,
+      'Walls': walls_to_save,
       Action: response, // this is the cardinal direction taken
       Reward: goal_value,
       "In Goal": this.mdp.inGoal(nextState[agent]["location"], agent),
